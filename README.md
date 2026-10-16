@@ -18,6 +18,12 @@ git clone https://github.com/BJ1919810/dsh-rea
 dsh plugin --profile desktop add file:D:/path/to/dsh-rea
 ```
 
+锁定版本（本仓库已打 tag）：
+
+```powershell
+dsh plugin --profile desktop add github:BJ1919810/dsh-rea#v1.0.0
+```
+
 `--profile desktop` 是 GUI 用的 profile；TUI 用户改成 `--profile tui`。
 装完在**插件页**会出现 `dsh-rea` 这一项，那个开关就是总开关。
 
