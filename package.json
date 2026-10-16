@@ -1,0 +1,60 @@
+{
+  "name": "dsh-rea",
+  "version": "1.0.0",
+  "description": "One DSH plugin switch for REA: the REA MCP server (207 reverse-engineering tools) and REA's three workflow skills, enabled and disabled together.",
+  "type": "module",
+  "main": "./lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "skills",
+    "test",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE",
+    "LICENSE-REA",
+    "NOTICE",
+    "sync-skills.mjs"
+  ],
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "skill",
+    "rea",
+    "reverse-engineering",
+    "mcp",
+    "ghidra",
+    "jadx",
+    "apktool",
+    "frida",
+    "adb"
+  ],
+  "license": "MIT",
+  "author": "BJ1919810",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BJ1919810/dsh-rea.git"
+  },
+  "homepage": "https://github.com/BJ1919810/dsh-rea",
+  "bugs": {
+    "url": "https://github.com/BJ1919810/dsh-rea/issues"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "scripts": {
+    "test": "node test/smoke.mjs",
+    "sync-skills": "node sync-skills.mjs"
+  },
+  "engines": {
+    "node": ">=22.19.0"
+  }
+}

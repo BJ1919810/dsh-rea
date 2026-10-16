@@ -1,0 +1,36 @@
+# dsh-rea — one switch for REA inside DeepSeek Harness.
+#
+# A bundle patch is applied only while this package is listed in the profile's
+# `dsh.profile.bundles`, so the plugin switch controls BOTH entries below:
+#   rea-skills : this package's skill provider (REA's three workflow skills)
+#   rea-mcp    : the REA MCP server (@deepseek-ai/dsh-mcp-client, 207 tools)
+#
+# Engine paths are NOT hardcoded. The MCP server inherits the DSH process
+# environment, so export the variables REA documents (GHIDRA_INSTALL_DIR,
+# JAVA_HOME, REA_JADX_MCP_JAR, REA_APKTOOL_COMMAND, REA_ADB_PATH) before
+# starting DSH. See README.md.
+#
+# Launcher: one expression picks the platform-correct form. The patch engine
+# evaluates `!!js` in a bundle patch — VERIFIED on Windows x64 (DSH Desktop,
+# 2026-10-16): it resolved to `cmd.exe /d /c npx ...` and the server came up
+# with all 207 tools callable. The non-Windows branch (`npx` directly) is the
+# form REA's own setup emits for macOS/Linux, but it has not been run there.
+#
+# No expressions wanted? Replace the two lines with literals:
+#
+#     command: cmd.exe                                    # Windows
+#     args: ['/d','/c','npx','-y','rea-agents@latest','mcp']
+#
+#     command: npx                                        # macOS / Linux
+#     args: ['-y','rea-agents@latest','mcp']
+#
+- insert:
+    - id: rea-skills
+      name: 'dsh-rea'
+    - id: rea-mcp
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: rea
+        transport: stdio
+        command: !!js "process.platform === 'win32' ? 'cmd.exe' : 'npx'"
+        args: !!js "process.platform === 'win32' ? ['/d','/c','npx','-y','rea-agents@latest','mcp'] : ['-y','rea-agents@latest','mcp']"

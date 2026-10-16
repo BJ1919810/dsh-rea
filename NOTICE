@@ -1,0 +1,42 @@
+dsh-rea
+=======
+
+This package redistributes skill instruction files authored by the REA project.
+It contains no REA source code and no third-party binaries.
+
+Upstream project
+----------------
+
+  REA (npm package: rea-agents)
+  https://github.com/morluto/rea
+  Copyright (c) 2026 morluto
+  MIT License (see LICENSE-REA in this repository)
+
+Redistributed material
+----------------------
+
+The following files under skills/ are verbatim copies of the corresponding
+files in the upstream repository's .agents/skills/ directory:
+
+  skills/reverse-engineer-anything/SKILL.md
+  skills/reverse-engineer-anything/references/*.md   (6 files)
+  skills/rea-tool-design/SKILL.md
+  skills/rea-changelog-update/SKILL.md
+
+Source revision of this copy
+----------------------------
+
+  repository : https://github.com/morluto/rea
+  path       : .agents/skills/
+  checkout   : working tree of commit 2f3dee3 (package version 6.4.0)
+  copied at  : 2026-10-16
+
+Changes
+-------
+
+No changes were made to the copied file contents. At runtime, lib/index.js
+reads each SKILL.md, parses its YAML frontmatter for the skill name and
+description, and serves the body with the frontmatter block removed, because
+the skill registry supplies those fields separately.
+
+Refresh with:  node sync-skills.mjs <path-to-rea-checkout>
