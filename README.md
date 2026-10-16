@@ -1,5 +1,7 @@
 # dsh-rea
 
+> 技能来自 [morluto/rea](https://github.com/morluto/rea)（MIT）。本仓库只是把它包装成 DSH 插件。
+
 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 插件：**一个开关，同时开/关**
 
 - **REA MCP 服务** —— 207 个逆向分析工具（Ghidra / IDA / jadx / apktool / frida / adb / pcap / 固件 / 浏览器 / Electron / 托管代码 …）
