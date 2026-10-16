@@ -53,6 +53,11 @@ REA_ADB_PATH         = D:\Android\Sdk\platform-tools\adb.exe
 npx -y rea-agents@latest doctor --json
 ```
 
+**不设也能装上**：插件会正常安装、MCP 服务也能启动，只是对应工具会以 `capability_unavailable`
+失败，并在提示里**点名该设哪个变量**（实测：未设 `REA_APKTOOL_COMMAND` 时，`inspect_apktool_client`
+直接返回「apktool launcher was not found … Set REA_APKTOOL_COMMAND to an absolute apktool launcher」）。
+设完变量需要**重启 DSH**（它只在启动时读环境）。
+
 ## macOS / Linux
 
 启动器用一条表达式**按平台自动选形态**（Windows 上 `npx` 是 `npx.cmd`，必须经 `cmd.exe`）：
@@ -99,8 +104,9 @@ node test/smoke.mjs
 | 项 | 状态 |
 |---|---|
 | Windows x64 + DSH Desktop + 本地路径安装 | ✅ 实测：开关 ON → `cordis.yml` 出现 `rea-skills`/`rea-mcp`，`inspect_apktool_client` 真调用返回 apktool 3.0.3；OFF → 两条目消失、调用报 `unknown tool` |
-| `github:` spec 安装 | ⚠️ 未实测 |
+| `github:` spec 安装（上面方式一） | ✅ 实测（2026-10-16）：pnpm 6.4s 装好，DSH 供应链策略放行（`Lockfile passes supply-chain policies`），自动入列 `dsh.profile.bundles` 并即时生效，`rea-skills` 指向 `dsh-rea`，MCP 服务可调用 |
 | `!!js` 启动器表达式在 bundle patch 里被求值 | ✅ 实测（Windows x64：正确取 `cmd.exe` 分支，207 工具可用） |
+| 未设环境变量时的行为 | ✅ 实测：装得上、服务起得来，工具报 `capability_unavailable` 并点名缺哪个变量 |
 | macOS / Linux 实际运行 | ⚠️ 未实测（只验了表达式求值，没验 `npx` 分支） |
 
 ## 致谢与许可
